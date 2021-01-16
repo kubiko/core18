@@ -125,3 +125,13 @@ parts:
       - to amd64: http://mirrors.kernel.org/ubuntu/pool/main/libz/libzstd/libzstd1_1.4.4+dfsg-3_amd64.deb
     stage:
       - usr/lib/*/libzstd.so*
+
+  # xdelta is used to enable delta downloads
+  xdelta3:
+    plugin: nil
+    stage-packages:
+      - xdelta3
+    stage:
+      - usr/bin/*
+      - usr/lib/*
+      - lib/*
