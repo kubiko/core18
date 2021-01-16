@@ -19,6 +19,7 @@ parts:
     stage:
       - -usr/bin/mksquashfs
       - -usr/bin/unsquashfs
+      - -usr/lib/*/libzstd*
       - .disk
       - ./*
     # XXX: Dirty hacks to enable building core18 on non-bionic systems.
@@ -115,3 +116,12 @@ parts:
     stage:
       - usr/bin/mksquashfs
       - usr/bin/unsquashfs
+
+  libzstd:
+    plugin: dump
+    source:
+      - to armhf: http://ports.ubuntu.com/ubuntu-ports/pool/main/libz/libzstd/libzstd1_1.4.4+dfsg-3_armhf.deb
+      - to arm64: http://ports.ubuntu.com/ubuntu-ports/pool/main/libz/libzstd/libzstd1_1.4.4+dfsg-3_arm64.deb
+      - to amd64: http://mirrors.kernel.org/ubuntu/pool/main/libz/libzstd/libzstd1_1.4.4+dfsg-3_amd64.deb
+    stage:
+      - usr/lib/*/libzstd.so*
