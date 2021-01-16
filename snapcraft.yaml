@@ -16,8 +16,11 @@ parts:
       - wget
     # XXX: snapcraft by default doesn't stage hidden (.) files and directories,
     # so we need to explicitly list the .disk file for it to get staged/primed.
-    stage: [ .disk, ./* ]
-    prime: [ .disk, ./* ]
+    stage:
+      - -usr/bin/mksquashfs
+      - -usr/bin/unsquashfs
+      - .disk
+      - ./*
     # XXX: Dirty hacks to enable building core18 on non-bionic systems.
     # Without these overrides both the PATH and LD_LIBRARY_PATH contain paths
     # in the part's install directory which binaries can be incompatible with
@@ -102,3 +105,13 @@ parts:
       - u-boot-tools
     stage:
       - usr/bin/fw_*
+
+  squashfs-tools:
+    plugin: dump
+    source:
+      - to armhf: http://ports.ubuntu.com/ubuntu-ports/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_armhf.deb
+      - to arm64: http://ports.ubuntu.com/ubuntu-ports/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_arm64.deb
+      - to amd64: http://mirrors.kernel.org/ubuntu/pool/main/s/squashfs-tools/squashfs-tools_4.4-1_amd64.deb
+    stage:
+      - usr/bin/mksquashfs
+      - usr/bin/unsquashfs
